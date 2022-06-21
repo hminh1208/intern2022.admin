@@ -1,0 +1,19 @@
+html,
+body {
+  @apply h-full;
+}
+
+body {
+  @apply bg-neutral-100;
+  @apply text-neutral-900;
+}
+
+body.dark {
+  @apply bg-neutral-900;
+  @apply text-neutral-50;
+}
+
+body.green {
+  @apply bg-lime-100;
+  @apply text-orange-500;
+}
