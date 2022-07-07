@@ -11,7 +11,7 @@ import { ROUTER_UTILS } from '@core/utils/router.utils';
 export class HomePage {
     path = ROUTER_UTILS.config;
     theme = ThemeList;
-    title: string = 'Add item';
+    title: string = '';
     showContent: boolean = false;
     todoList: Todo[] = [];
 
@@ -20,32 +20,12 @@ export class HomePage {
         private service: TodoService,
     ) {}
 
-    ngOnInit() {
-        this.getList();
-    }
-
-    getList() {
-        this.service.getTodoItem().subscribe((value) => {
-            console.log({ value });
-            this.todoList = value;
-        });
-    }
+    ngOnInit() {}
 
     inputChanged(value: any) {
         this.title = value;
     }
 
-    delete(id: string) {
-        this.service.deleteItem(id).subscribe((value) => {
-            this.getList();
-        });
-    }
-
-    addItem(title: string) {
-        this.service.addItem({ title } as Todo).subscribe((value) => {
-            this.getList();
-        });
-    }
     hideContent() {
         this.showContent = !this.showContent;
     }
