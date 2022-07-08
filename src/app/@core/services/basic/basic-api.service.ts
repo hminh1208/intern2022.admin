@@ -2,11 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 import { Todo } from '../../models/todo.model';
 
 @Injectable({ providedIn: 'root' })
 export class TodoService {
-    private url = 'https://crud-todo-demo.herokuapp.com/api/'; // URL to web api
+
+    //private url = 'https://crud-todo-demo.herokuapp.com/api/'; // URL to web api
+    private url = environment.apiUrl;
 
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -15,7 +18,7 @@ export class TodoService {
     constructor(private http: HttpClient) {}
 
     getTodoItem(): Observable<Todo[]> {
-        return this.http.get<Todo[]>(this.url + 'todo').pipe(
+        return this.http.get<Todo[]>(this.url + '/todo').pipe(
             tap((_) => console.log('fetched items')),
             catchError(this.handleError<Todo[]>('getItems', [])),
         );
@@ -23,7 +26,7 @@ export class TodoService {
 
     addItem(todo: Todo): Observable<Todo> {
         return this.http
-            .post<Todo>(this.url + 'todo', todo, this.httpOptions)
+            .post<Todo>(this.url + '/todo', todo, this.httpOptions)
             .pipe(
                 tap((newItem: Todo) => console.log(`added item}`)),
                 catchError(this.handleError<Todo>('additem')),
@@ -31,7 +34,7 @@ export class TodoService {
     }
 
     deleteItem(id: string): Observable<Todo> {
-        const url = `${this.url}todo/${id}`;
+        const url = `${this.url}/todo/${id}`;
 
         return this.http.delete<Todo>(url, this.httpOptions).pipe(
             tap((_) => console.log(`deleted item id=${id}`)),
