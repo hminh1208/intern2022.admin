@@ -12,10 +12,10 @@
 <div class="row mt-3">
     <div class="col-md-12">
         <ul class="list-group w-100">
-            <li class="list-group-item" *ngFor="let item of todoList">
-                {{ item.title }}
+            <li class="list-group-item" *ngFor="let item of CityList">
+                {{ item.abbName }} - {{ item.name }}
                 <button type="button" class="btn btn-danger float-right" title="delete"
-                    (click)="delete(item.todoId)">
+                    (click)="delete(item.id)">
                     X
                 </button>
             </li>

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://crud-todo-demo.herokuapp.com/api',
+  apiUrl: 'https://smartportal-api.azurewebsites.net/api',
 };
 
 /*

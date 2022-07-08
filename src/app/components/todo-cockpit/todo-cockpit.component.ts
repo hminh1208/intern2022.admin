@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Todo } from '@core/models/todo.model';
-import { TodoService } from '@core/services/basic/basic-api.service';
+import { City } from '@core/models/city.model';
+import { CityService } from '@core/services/basic/basic-api.service';
 
 @Component({
     selector: 'app-todo-cockpit',
@@ -9,29 +9,29 @@ import { TodoService } from '@core/services/basic/basic-api.service';
 })
 export class TodoCockpitComponent implements OnInit {
     title: string = '';
-    todoList: Todo[] = [];
+    CityList: City[] = [];
 
-    constructor(private service: TodoService) {}
+    constructor(private service: CityService) {}
 
     ngOnInit(): void {
         this.getList();
     }
 
     getList() {
-        this.service.getTodoItem().subscribe((value) => {
+        this.service.getCity().subscribe((value) => {
             console.log({ value });
-            this.todoList = value;
+            this.CityList = value;
         });
     }
 
     delete(id: string) {
-        this.service.deleteItem(id).subscribe((value) => {
+        this.service.deleteCity(id).subscribe((value) => {
             this.getList();
         });
     }
 
     addItem(title: string) {
-        this.service.addItem({ title } as Todo).subscribe((value) => {
+        this.service.addCity({ name: title, abbName: title } as City).subscribe((value) => {
             this.getList();
         });
     }

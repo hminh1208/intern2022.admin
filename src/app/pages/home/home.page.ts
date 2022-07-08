@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Todo } from '@core/models/todo.model';
-import { TodoService } from '@core/services/basic/basic-api.service';
 import { ThemeList, ThemeService } from '@core/services/theme';
 import { ROUTER_UTILS } from '@core/utils/router.utils';
 
@@ -13,11 +11,9 @@ export class HomePage {
     theme = ThemeList;
     title: string = '';
     showContent: boolean = false;
-    todoList: Todo[] = [];
 
     constructor(
         private themeService: ThemeService,
-        private service: TodoService,
     ) {}
 
     ngOnInit() {}

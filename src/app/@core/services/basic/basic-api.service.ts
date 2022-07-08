@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { City } from '@core/models/city.model';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
-import { Todo } from '../../models/todo.model';
 
 @Injectable({ providedIn: 'root' })
-export class TodoService {
+export class CityService {
 
-    //private url = 'https://crud-todo-demo.herokuapp.com/api/'; // URL to web api
+    //private url = 'https://crud-City-demo.herokuapp.com/api/'; // URL to web api
     private url = environment.apiUrl;
 
     httpOptions = {
@@ -17,37 +17,37 @@ export class TodoService {
 
     constructor(private http: HttpClient) {}
 
-    getTodoItem(): Observable<Todo[]> {
-        return this.http.get<Todo[]>(this.url + '/todo').pipe(
-            tap((_) => console.log('fetched items')),
-            catchError(this.handleError<Todo[]>('getItems', [])),
+    getCity(): Observable<City[]> {
+        return this.http.get<City[]>(this.url + '/cities').pipe(
+            tap((_) => console.log('fetched Citys')),
+            catchError(this.handleError<City[]>('getCitys', [])),
         );
     }
 
-    addItem(todo: Todo): Observable<Todo> {
+    addCity(City: City): Observable<City> {
         return this.http
-            .post<Todo>(this.url + '/todo', todo, this.httpOptions)
+            .post<City>(this.url + '/cities', City, this.httpOptions)
             .pipe(
-                tap((newItem: Todo) => console.log(`added item}`)),
-                catchError(this.handleError<Todo>('additem')),
+                tap((newCity: City) => console.log(`added City}`)),
+                catchError(this.handleError<City>('addCity')),
             );
     }
 
-    deleteItem(id: string): Observable<Todo> {
-        const url = `${this.url}/todo/${id}`;
+    deleteCity(id: string): Observable<City> {
+        const url = `${this.url}/cities/${id}`;
 
-        return this.http.delete<Todo>(url, this.httpOptions).pipe(
-            tap((_) => console.log(`deleted item id=${id}`)),
-            catchError(this.handleError<Todo>('deleteItem')),
+        return this.http.delete<City>(url, this.httpOptions).pipe(
+            tap((_) => console.log(`deleted City id=${id}`)),
+            catchError(this.handleError<City>('deleteCity')),
         );
     }
 
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
-            // TODO: send the error to remote logging infrastructure
+            // City: send the error to remote logging infrastructure
             console.error(error); // log to console instead
 
-            // TODO: better job of transforming error for user consumption
+            // City: better job of transforming error for user consumption
             console.log(`${operation} failed: ${error.message}`);
 
             // Let the app keep running by returning an empty result.
