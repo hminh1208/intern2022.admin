@@ -24,17 +24,27 @@ export class CityService {
         );
     }
 
-    addCity(City: City): Observable<City> {
+    add(City: City): Observable<City> {
         return this.http
             .post<City>(this.url + '/cities', City, this.httpOptions)
             .pipe(
-                tap((newCity: City) => console.log(`added City}`)),
+                tap((newCity: City) => console.log(`added City`)),
+                catchError(this.handleError<City>('addCity')),
+            );
+    }
+
+    update(City: City): Observable<City> {
+        return this.http
+            .post<City>(`${this.url}/cities/${City.id}`, City, this.httpOptions)
+            .pipe(
+                tap((newCity: City) => console.log(`added City`)),
                 catchError(this.handleError<City>('addCity')),
             );
     }
 
     deleteCity(id: string): Observable<City> {
         const url = `${this.url}/cities/${id}`;
+        console.log(url);
 
         return this.http.delete<City>(url, this.httpOptions).pipe(
             tap((_) => console.log(`deleted City id=${id}`)),

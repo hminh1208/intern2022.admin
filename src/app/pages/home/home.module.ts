@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CityModule } from '@components/city/city.module';
 import { InputModule } from '@components/input/input.module';
-import { TodoCockpitModule } from '@components/todo-cockpit/todo-cockpit.module';
 import { HomePage } from './home.page';
 @NgModule({
     declarations: [HomePage],
@@ -13,7 +13,7 @@ import { HomePage } from './home.page';
         DragDropModule,
         FormsModule,
         InputModule,
-        TodoCockpitModule,
+        CityModule,
         RouterModule.forChild([
             {
                 path: '',

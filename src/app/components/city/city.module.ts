@@ -2,11 +2,11 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
-import { TodoCockpitComponent } from "./todo-cockpit.component";
+import { CityComponent } from "./city.component";
 
 @NgModule({
-    declarations: [TodoCockpitComponent],
+    declarations: [CityComponent],
     imports: [FormsModule, CommonModule, MatButtonModule],
-    exports: [TodoCockpitComponent],
+    exports: [CityComponent],
 })
-export class TodoCockpitModule {}
+export class CityModule {}
