@@ -22,6 +22,12 @@ const APP_ROUTES: Routes = [
       (await import('@pages/home/home.module')).HomeModule,
   },
   {
+    path: ROUTER_UTILS.config.category.root,
+    loadChildren: async () =>
+      (await import('@pages/category/category.module')).CategoryModule,
+      canLoad: [NoAuthGuard],
+  },
+  {
     path: ROUTER_UTILS.config.base.dashboard,
     loadChildren: async () =>
       (await import('@pages/dashboard/dashboard.module')).DashboardModule,

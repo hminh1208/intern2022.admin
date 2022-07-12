@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <h3 class="col-md-12">{{name}}</h3>
+        <div class="col-md-12 d-flex">
+            <input class="form-control col-md-3 mr-2" [(ngModel)]="abbName" />
+            <input class="form-control col-md-5 mr-2" [(ngModel)]="name" />
+            <button *ngIf="!isEdited" mat-raised-button color="primary" class="col-md-2" (click)="addItem(abbName, name)">Add</button>
+            <button *ngIf="isEdited" mat-raised-button color="primary" class="col-md-2" (click)="saveEdit()">Save</button>
+            <button *ngIf="isEdited" mat-raised-button color="secondary" class="col-md-2" (click)="cancleEdit()">Cancel</button>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <ul class="list-group w-100">
+                <li class="list-group-item" *ngFor="let item of cityList">
+                    {{ item.abbName }} - {{ item.name }}
+                    <button type="button" class="btn btn-danger float-right ml-2" title="delete"
+                        (click)="delete(item.id)">
+                        Delete
+                    </button>
+                    <button type="button" class="btn btn-warning float-right" title="edit"
+                        (click)="edit(item.id)">
+                        Edit
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
