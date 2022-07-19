@@ -29,8 +29,8 @@
         $(window).on('scroll', function () {
             if ($(this).scrollTop() < 600) {
                 $(".sidebar-list").removeClass("hoverd");
-            }         
-        });   
+            }
+        });
       }
 
     /*----------------------------------------
@@ -129,9 +129,11 @@
 
 })(jQuery);
 
-$('.loader-wrapper').fadeOut('slow', function () {
-    $(this).remove();
-});
+setTimeout(() => {
+    $('.loader-wrapper').fadeOut('slow', function () {
+        $(this).remove();
+    });
+}, 5000);
 
 $(window).on('scroll', function () {
     if ($(this).scrollTop() > 600) {
