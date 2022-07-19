@@ -6,8 +6,7 @@ import { CityPage } from './pages/city/city.page';
 const routes: Routes = [
   {
     path: ROUTER_UTILS.config.category.city,
-    component: CityPage,
-    children: []
+    component: CityPage
   }
 ];
 

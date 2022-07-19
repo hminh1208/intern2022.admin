@@ -1,31 +1,58 @@
 <div class="container">
+    <h1>City management</h1>
     <div class="row">
         <h3 class="col-md-12">{{name}}</h3>
-        <div class="col-md-12 d-flex">
-            <input class="form-control col-md-3 mr-2" [(ngModel)]="abbName" />
-            <input class="form-control col-md-5 mr-2" [(ngModel)]="name" />
-            <button *ngIf="!isEdited" mat-raised-button color="primary" class="col-md-2" (click)="addItem(abbName, name)">Add</button>
-            <button *ngIf="isEdited" mat-raised-button color="primary" class="col-md-2" (click)="saveEdit()">Save</button>
-            <button *ngIf="isEdited" mat-raised-button color="secondary" class="col-md-2" (click)="cancleEdit()">Cancel</button>
+        <div class="row g-3 d-flex">
+            <div class="col-md-3 mr-2">
+                <input class="form-control" [(ngModel)]="abbName" />
+            </div>
+            <div class="col-md-5">
+                <input class="form-control" [(ngModel)]="name" />
+            </div>
+            <div class="col-md-2">
+                <button *ngIf="!isEdited" mat-raised-button color="primary"
+                    (click)="addItem(abbName, name)">Add</button>
+            </div>
+            <div class="col-md-2">
+                <button *ngIf="isEdited" mat-raised-button color="primary" (click)="saveEdit()">Save</button>
+            </div>
+            <div class="col-md-2">
+                <button *ngIf="isEdited" mat-raised-button color="secondary" (click)="cancleEdit()">Cancel</button>
+            </div>
+
+
         </div>
     </div>
 
     <div class="row mt-3">
-        <div class="col-md-12">
-            <ul class="list-group w-100">
-                <li class="list-group-item" *ngFor="let item of cityList">
-                    {{ item.abbName }} - {{ item.name }}
-                    <button type="button" class="btn btn-danger float-right ml-2" title="delete"
-                        (click)="delete(item.id)">
-                        Delete
-                    </button>
-                    <button type="button" class="btn btn-warning float-right" title="edit"
-                        (click)="edit(item.id)">
-                        Edit
-                    </button>
-                </li>
-            </ul>
-        </div>
+        <table class="display table dataTable no-footer" id="basic-1" role="grid" aria-describedby="basic-1_info">
+            <thead>
+                <tr role="row">
+                    <th>Abbrivation Name</th>
+                    <th>Name</th>
+                    <th>Action</th>
+
+            </thead>
+            <tbody>
+                <tr role="row" class="odd" *ngFor="let item of cityList">
+                    <td>{{ item.abbName }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-warning" title="edit" (click)="edit(item.id)">
+                                    Edit
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-danger" title="delete" (click)="delete(item.id)">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-

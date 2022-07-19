@@ -5,12 +5,12 @@ import { AuthService } from '@pages/auth/services/auth.service';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
+export class SidebarComponent implements OnInit {
   path = ROUTER_UTILS.config;
   isLoggedIn$!: Observable<boolean>;
 
@@ -18,20 +18,5 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
-    console.log(this.isLoggedIn$);
-  }
-
-  onClickSignOut(): void {
-    this.authService.signOut();
-    this.redirectSignInPage();
-  }
-
-  onClickSignIn(): void{
-    this.redirectSignInPage();
-  }
-
-  private redirectSignInPage(): void{
-    const { root, signIn } = ROUTER_UTILS.config.auth;
-    this.router.navigate(['/', root, signIn]);
   }
 }

@@ -16,7 +16,7 @@ export class CityPage implements OnInit {
     constructor(private service: CityService) {}
 
     ngOnInit(): void {
-        this.getList();
+        // this.getList();
     }
 
     getList() {
