@@ -8,6 +8,7 @@ import { FooterModule } from './ui/footer/footer.module';
 import { HeaderModule } from './ui/header/header.module';
 import { LayoutModule } from './ui/layout/layout.module';
 import { NotFoundPage } from './ui/not-found/not-found.page';
+import { SidebarModule } from './ui/sidebar/sidebar.module';
 
 const APP_ROUTES: Routes = [
   {
@@ -61,6 +62,7 @@ const APP_ROUTES: Routes = [
     HeaderModule,
     LayoutModule,
     NotFoundModule,
+    SidebarModule
   ],
   exports: [
     RouterModule,
@@ -68,6 +70,7 @@ const APP_ROUTES: Routes = [
     HeaderModule,
     LayoutModule,
     NotFoundModule,
+    SidebarModule
   ],
 })
 export class WebShellModule {}
