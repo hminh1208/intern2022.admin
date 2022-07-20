@@ -11,13 +11,14 @@ import { Observable } from 'rxjs/internal/Observable';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
-  path = ROUTER_UTILS.config.base;
+  path = ROUTER_UTILS.config;
   isLoggedIn$!: Observable<boolean>;
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
+    console.log(this.isLoggedIn$);
   }
 
   onClickSignOut(): void {
