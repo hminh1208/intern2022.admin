@@ -1,23 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from '@core/models/city.model';
 import { CityService } from '@core/services/basic/basic-api.service';
-
+import { NgToastService } from 'ng-angular-popup';
 @Component({
     selector: 'app-city',
     templateUrl: './city.component.html',
     styleUrls: ['./city.component.css'],
 })
 export class CityComponent implements OnInit {
-    abbName: string = '';
-    name: string = '';
-    selectedId: string = '';
+    abbName= '';
+    name= '';
+    selectedId = '';
     cityList: City[] = [];
-    isEdited: boolean = false;
-
-    constructor(private service: CityService) {}
+    showAdd= false;
+    showUpdate= false;
+    reactiveForm: any;
+    constructor(private service: CityService, private toast: NgToastService) {}
 
     ngOnInit(): void {
         this.getList();
+        // this.reactiveForm=new FormGroup({
+        //     "abbName": new FormControl(null,[Validators.required,Validators.pattern('[a-zA-Z]*')])
+        // });
     }
 
     getList() {
@@ -26,23 +30,39 @@ export class CityComponent implements OnInit {
             this.cityList = value;
         });
     }
-
+    // get abbname(){
+    //     return this.reactiveForm.get("abbName")
+    // }
     delete(id: string) {
         this.service.deleteCity(id).subscribe((value) => {
+            this.toast.success({detail:"Success Message", summary:"Delete Success", duration:5000})
             this.getList();
         });
     }
-
-    addItem(abbName: string, name: string) {
-        this.service.add({ name: name, abbName: abbName } as City).subscribe((value) => {
-            this.getList();
-        });
+    clickAddCity(){
+        this.resetForm();
+        this.showAdd= true;
     }
 
-    edit(id: string){
+    addItem(abbName: string, name: string) {  
+        this.showAdd= true;
+        this.showUpdate= false;
+        if(name===""|| abbName===""){   
+            this.toast.error({detail:"Error Message", summary:"Add Fail, Try again later!", duration:5000})
+        }
+        else{
+            this.service.add({ name: name, abbName: abbName } as City).subscribe((value) => {
+            this.toast.success({detail:"Success Message", summary:"Add City Success", duration:5000})
+            this.getList();
+        });}
+        
+    }
+
+    edit(id: string){  
         this.selectedId = id;
-        this.isEdited = true;
-        var city = this.cityList.find(x => x.id == id);
+        this.showAdd= false;
+        this.showUpdate= true;
+        const city = this.cityList.find(x => x.id == id);
         if(city){
             this.name = city?.name;
             this.abbName = city?.abbName;
@@ -51,18 +71,16 @@ export class CityComponent implements OnInit {
 
     saveEdit(){
         this.service.update({id: this.selectedId, name: this.name, abbName: this.abbName } as City).subscribe((value) => {
+            this.toast.success({detail:"Success Message", summary:"Update Success", duration:5000})
             this.getList();
         });
     }
 
-    cancleEdit(){
-        this.resetForm()
-    }
-
     private resetForm(){
         this.selectedId = '';
-        this.isEdited = false;
         this.name = '';
         this.abbName = '';
+        this.showUpdate= false;
     }
+
 }
