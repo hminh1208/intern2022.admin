@@ -1,7 +1,6 @@
 <div class="container">
     <h1>City management</h1>
     <div class="row">
-        <h3 class="col-md-12">{{name}}</h3>
         <div class="row g-3 d-flex">
             <div class="col-md-3 mr-2">
                 <input class="form-control" [(ngModel)]="abbName" />
@@ -10,49 +9,47 @@
                 <input class="form-control" [(ngModel)]="name" />
             </div>
             <div class="col-md-2">
-                <button *ngIf="!isEdited" mat-raised-button color="primary"
-                    (click)="addItem(abbName, name)">Add</button>
-            </div>
-            <div class="col-md-2">
+                <button *ngIf="!isEdited" mat-raised-button color="primary" (click)="addItem(abbName, name)">Add</button>
                 <button *ngIf="isEdited" mat-raised-button color="primary" (click)="saveEdit()">Save</button>
-            </div>
-            <div class="col-md-2">
                 <button *ngIf="isEdited" mat-raised-button color="secondary" (click)="cancleEdit()">Cancel</button>
             </div>
-
-
         </div>
     </div>
-
     <div class="row mt-3">
-        <table class="display table dataTable no-footer" id="basic-1" role="grid" aria-describedby="basic-1_info">
-            <thead>
-                <tr role="row">
-                    <th>Abbrivation Name</th>
-                    <th>Name</th>
-                    <th>Action</th>
+        <table mat-table [dataSource]="dataSource">
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
 
-            </thead>
-            <tbody>
-                <tr role="row" class="odd" *ngFor="let item of cityList">
-                    <td>{{ item.abbName }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-warning" title="edit" (click)="edit(item.id)">
-                                    Edit
-                                </button>
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-danger" title="delete" (click)="delete(item.id)">
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="abbName">
+                <th mat-header-cell *matHeaderCellDef> Abbrivation Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.abbName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element">
+                    <button type="button" class="btn btn-warning" title="edit" (click)="edit(element.id)">
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-danger" title="delete" (click)="delete(element.id)">
+                        Delete
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of city elements"
+            [length]="total"
+            (page)="handlePage($event)">
+        </mat-paginator>
     </div>
 </div>

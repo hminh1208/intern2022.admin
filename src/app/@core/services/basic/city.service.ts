@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { City } from '@core/models/city.model';
+import { City, CityResponseDto } from '@core/models/city.model';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
@@ -8,19 +8,21 @@ import { environment } from '../../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class CityService {
 
-    //private url = 'https://crud-City-demo.herokuapp.com/api/'; // URL to web api
     private url = environment.apiUrl;
 
     httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        headers: new HttpHeaders({ 'Content-Type': 'application/json'}),
+        withCredentials: true
     };
 
     constructor(private http: HttpClient) {}
 
-    getCity(): Observable<City[]> {
-        return this.http.get<City[]>(this.url + '/cities').pipe(
+    getCity(currentPage: number, pageSize: number): Observable<CityResponseDto> {
+        var params = new HttpParams().set('page', currentPage).set('pageSize', pageSize);
+
+        return this.http.get<CityResponseDto>(this.url + '/cities', {params: params}).pipe(
             tap((_) => console.log('fetched Citys')),
-            catchError(this.handleError<City[]>('getCitys', [])),
+            catchError(this.handleError<CityResponseDto>('getCitys')),
         );
     }
 
@@ -44,7 +46,8 @@ export class CityService {
 
     deleteCity(id: string): Observable<City> {
         const url = `${this.url}/cities/${id}`;
-        console.log(url);
+
+        console.log(this.httpOptions);
 
         return this.http.delete<City>(url, this.httpOptions).pipe(
             tap((_) => console.log(`deleted City id=${id}`)),

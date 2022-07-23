@@ -32,6 +32,6 @@ export class HeaderComponent implements OnInit {
 
   private redirectSignInPage(): void{
     const { root, signIn } = ROUTER_UTILS.config.auth;
-    this.router.navigate(['/', root, signIn]);
+    this.router.navigate(['/', ROUTER_UTILS.config.auth.root, ROUTER_UTILS.config.auth.signIn]);
   }
 }
