@@ -3,8 +3,8 @@
     <h3>Sign In</h3>
     <div class="row justify-content-md-center">
       <div class="col-md-6 col-off-set-3">
-          <input type="text" class="form-control my-2" type="text">
-          <input type="text" class="form-control my-2" type="password" name="" id="">
+          <input type="text" class="form-control my-2" type="email" [(ngModel)]="email">
+          <input type="text" class="form-control my-2" type="password" name="" id="" [(ngModel)]="password">
           <button class="btn btn-primary my-2" (click)="onClickSignIn()">Sign in</button>
       </div>
     </div>

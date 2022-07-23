@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AccountAuthRequestDto } from '@core/models/auth.model';
 import { ROUTER_UTILS } from '@core/utils/router.utils';
 import { AuthService } from '../../services/auth.service';
 
@@ -9,6 +10,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SignInPage {
   returnUrl: string;
+  email: string = "";
+  password: string = "";
 
   constructor(
     private router: Router,
@@ -21,7 +24,13 @@ export class SignInPage {
   }
 
   onClickSignIn(): void {
-    this.authService.signIn();
-    this.router.navigate([this.returnUrl]);
+    var requestDto  = {
+        email: this.email,
+        password: this.password
+    } as AccountAuthRequestDto;
+
+    this.authService.signIn(requestDto).subscribe((value) => {
+       this.router.navigate([this.returnUrl]);
+    });
   }
 }
