@@ -34,6 +34,8 @@ export class CityComponent implements OnInit {
     //     return this.reactiveForm.get("abbName")
     // }
     delete(id: string) {
+        console.log("click delete");
+        
         this.service.deleteCity(id).subscribe((value) => {
             this.toast.success({detail:"Success Message", summary:"Delete Success", duration:5000})
             this.getList();
@@ -41,6 +43,8 @@ export class CityComponent implements OnInit {
     }
     clickAddCity(){
         this.resetForm();
+        console.log("click new city");
+        
         this.showAdd= true;
     }
 

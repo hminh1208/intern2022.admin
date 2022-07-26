@@ -32,5 +32,9 @@ export const ROUTER_UTILS = {
     errorResponse: {
       notFound: '404',
     },
+    category:{
+        root: 'category',
+        city: 'city'
+    }
   },
 };
