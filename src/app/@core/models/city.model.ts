@@ -3,3 +3,8 @@ export interface City {
     name: string;
     abbName: string;
 }
+
+export interface CityResponseDto{
+    results: City[],
+    total: number
+}
