@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from '@core/models/city.model';
-import { CityService } from '@core/services/basic/basic-api.service';
+import { CityService } from '@core/services/basic/city.service';
 import { NgToastService } from 'ng-angular-popup';
 @Component({
     selector: 'app-city',
@@ -26,8 +26,8 @@ export class CityComponent implements OnInit {
 
     getList() {
         this.resetForm();
-        this.service.getCity().subscribe((value) => {
-            this.cityList = value;
+        this.service.getCity(0, 10).subscribe((value) => {
+            // this.cityList = value;
         });
     }
     // get abbname(){
@@ -48,10 +48,10 @@ export class CityComponent implements OnInit {
         this.showAdd= true;
     }
 
-    addItem(abbName: string, name: string) {  
+    addItem(abbName: string, name: string) {
         this.showAdd= true;
         this.showUpdate= false;
-        if(name===""|| abbName===""){   
+        if(name===""|| abbName===""){
             this.toast.error({detail:"Error Message", summary:"Add Fail, Try again later!", duration:5000})
         }
         else{
@@ -59,10 +59,10 @@ export class CityComponent implements OnInit {
             this.toast.success({detail:"Success Message", summary:"Add City Success", duration:5000})
             this.getList();
         });}
-        
+
     }
 
-    edit(id: string){  
+    edit(id: string){
         this.selectedId = id;
         this.showAdd= false;
         this.showUpdate= true;
