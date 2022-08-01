@@ -1,7 +1,5 @@
 <app-header></app-header>
 <lib-ng-toast></lib-ng-toast>
-<app-sidebar></app-sidebar>
-
 <app-layout *ngIf="isLoggedIn$ | async; else notAuthorized">
   <router-outlet></router-outlet>
 </app-layout>
