@@ -1,23 +1,23 @@
 <!-- <div class="row">
     <h3 class="col-md-12">{{name}}</h3>
     <div class="col-md-12 d-flex">
-        <input class="form-control col-md-3 mr-2" [(ngModel)]="abbName" placeholder="Enter the short name of the city"/>
-        <input class="form-control col-md-5 mr-2" [(ngModel)]="name" placeholder="Enter the name of the city" />
+        <input class="mr-2 form-control col-md-3" [(ngModel)]="abbName" placeholder="Enter the short name of the city"/>
+        <input class="mr-2 form-control col-md-5" [(ngModel)]="name" placeholder="Enter the name of the city" />
         <button *ngIf="!isEdited" mat-raised-button color="primary" class="col-md-2" (click)="addItem(abbName, name)">Add</button>
         <button *ngIf="isEdited" mat-raised-button color="primary" class="col-md-2" (click)="saveEdit()">Save</button>
         <button *ngIf="isEdited" mat-raised-button color="secondary" class="col-md-2" (click)="cancleEdit()">Cancel</button>
     </div>
 </div> -->
-<!-- <div class="row mt-3">
+<!-- <div class="mt-3 row">
     <div class="col-md-12">
         <ul class="list-group w-100">
             <li  class="list-group-item" *ngFor="let item of cityList">
                 {{ item.abbName }} - {{ item.name }}
-                <button type="button" class="btn btn-danger float-right ml-2" title="delete"
+                <button type="button" class="float-right ml-2 btn btn-danger" title="delete"
                     (click)="delete(item.id)">
                     Delete
                 </button>
-                <button type="button" class="btn btn-warning float-right" title="edit"
+                <button type="button" class="float-right btn btn-warning" title="edit"
                     (click)="edit(item.id)">
                     Edit
                 </button>
@@ -26,10 +26,10 @@
     </div>
 </div> -->
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#exampleModal" (click)="clickAddCity()">
+<button type="button" class="mt-2 btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="clickAddCity()">
     New City
   </button>
-  
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -54,7 +54,7 @@
                             Enter only character.
                         </span>
                     </div>
-                    
+
                     <!-- <div *ngIf="abbname.invalid && (abbname.touched|| abbname.dirty)">
                         <span class="error" *ngIf="abbname.errors?.required">Short Name is required</span>
                         <span class="error" *ngIf="abbname.errors?.pattern">Short Name only character</span>
@@ -62,13 +62,13 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
-                    <input class="form-control" namee="name" [(ngModel)]="name" pattern="[a-zA-Z ]*" placeholder="Enter the name" required #namee="ngModel">
-                    <div *ngIf="namee.invalid && (namee.dirty || namee.touched)" class="alert">
+                    <input class="form-control" name="name" [(ngModel)]="nameString" pattern="[a-zA-Z ]*" placeholder="Enter the name" required #name="ngModel">
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
 
-                        <span class="error" *ngIf="namee.errors?.['required']">
+                        <span class="error" *ngIf="name.errors?.['required']">
                             Short Name is required
                         </span>
-                        <span class="error" *ngIf="namee.errors?.['pattern']">
+                        <span class="error" *ngIf="name.errors?.['pattern']">
                             Enter only character.
                         </span>
                     </div>
@@ -76,14 +76,14 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" *ngIf="showAdd" class="btn btn-primary" (click)="addItem(abbName, name)">Add</button>
+                <button type="button" *ngIf="showAdd" class="btn btn-primary" (click)="addItem(abbName, nameString)">Add</button>
                 <button type="button" *ngIf="showUpdate" class="btn btn-primary" (click)="saveEdit()">Update</button>
             </div>
         <!-- </form> -->
       </div>
     </div>
   </div>
-  <table class="table table-bordered mt-3">
+  <table class="table mt-3 table-bordered">
     <thead >
         <tr class="text-center">
             <th scope="col">Short Name</th>
@@ -96,11 +96,11 @@
             <td>{{ item.abbName }}</td>
             <td>{{ item.name }}</td>
             <td class="d-flex justify-content-center align-items-center">
-                <button type="button" class="btn btn-danger float-right mx-1 " title="delete"
+                <button type="button" class="float-right mx-1 btn btn-danger " title="delete"
                     (click)="delete(item.id)">
                     Delete
                 </button>
-                <button type="button" class="btn btn-warning float-right mx-1" title="edit" data-toggle="modal" data-target="#exampleModal"
+                <button type="button" class="float-right mx-1 btn btn-warning" title="edit" data-toggle="modal" data-target="#exampleModal"
                     (click)="edit(item.id)">
                     Edit
                 </button>

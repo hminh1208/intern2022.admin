@@ -9,7 +9,7 @@ import { NgToastService } from 'ng-angular-popup';
 })
 export class CityComponent implements OnInit {
     abbName= '';
-    name= '';
+    nameString= '';
     selectedId = '';
     cityList: City[] = [];
     showAdd= false;
@@ -64,13 +64,13 @@ export class CityComponent implements OnInit {
         this.showUpdate= true;
         const city = this.cityList.find(x => x.id == id);
         if(city){
-            this.name = city?.name;
+            this.nameString = city?.name;
             this.abbName = city?.abbName;
         }
     }
 
     saveEdit(){
-        this.service.update({id: this.selectedId, name: this.name, abbName: this.abbName } as City).subscribe((value) => {
+        this.service.update({id: this.selectedId, name: this.nameString, abbName: this.abbName } as City).subscribe((value) => {
             this.toast.success({detail:"Success Message", summary:"Update Success", duration:5000})
             this.getList();
         });
@@ -78,7 +78,7 @@ export class CityComponent implements OnInit {
 
     private resetForm(){
         this.selectedId = '';
-        this.name = '';
+        this.nameString = '';
         this.abbName = '';
         this.showUpdate= false;
     }
