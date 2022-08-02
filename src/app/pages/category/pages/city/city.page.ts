@@ -43,7 +43,6 @@ export class CityPage implements OnInit, AfterViewInit {
                 this.dataSource = new MatTableDataSource<City>(
                     response.results,
                 );
-                console.log(response.results);
                 this.total = response.total;
             });
     }
