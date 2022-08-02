@@ -1,0 +1,62 @@
+<!-- Button trigger modal -->
+<button type="button" class="mt-2 btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="clickAddGender()">
+    New Gender
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">The Gender Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input class="form-control" namee="name" [(ngModel)]="name" pattern="[a-zA-Z ]*" placeholder="Enter the name" required #namee="ngModel">
+                <div *ngIf="namee.invalid && (namee.dirty || namee.touched)" class="alert">
+
+                    <span class="error" *ngIf="namee.errors?.['required']">
+                        Name is required
+                    </span>
+                    <span class="error" *ngIf="namee.errors?.['pattern']">
+                        Enter only character.
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="showAdd" class="btn btn-primary" (click)="addItem(name)">Add</button>
+            <button type="button" *ngIf="showUpdate" class="btn btn-primary" (click)="saveEdit()">Update</button>
+        </div>
+        <!-- </form> -->
+      </div>
+    </div>
+  </div>
+  <table class="table mt-3 table-bordered">
+    <thead >
+        <tr class="text-center">
+            <th scope="col"> Name</th>
+            <th scope="col"> Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of genderList"  class="text-center">
+            <td>{{ item.name }}</td>
+            <td class="d-flex justify-content-center align-items-center">
+                <button type="button" class="float-right mx-1 btn btn-danger " title="delete"
+                    (click)="delete(item.id)">
+                    Delete
+                </button>
+                <button type="button" class="float-right mx-1 btn btn-warning" title="edit" data-toggle="modal" data-target="#exampleModal"
+                    (click)="edit(item.id)">
+                    Edit
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
