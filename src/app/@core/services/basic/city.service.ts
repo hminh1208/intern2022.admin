@@ -18,7 +18,7 @@ export class CityService {
     constructor(private http: HttpClient) {}
 
     getCity(currentPage: number, pageSize: number): Observable<CityResponseDto> {
-        var params = new HttpParams().set('page', currentPage).set('pageSize', pageSize);
+        const params = new HttpParams().set('page', currentPage).set('pageSize', pageSize);
 
         return this.http.get<CityResponseDto>(this.url + '/cities', {params: params}).pipe(
             tap((_) => console.log('fetched Citys')),
@@ -39,8 +39,8 @@ export class CityService {
         return this.http
             .post<City>(`${this.url}/cities/${City.id}`, City, this.httpOptions)
             .pipe(
-                tap((newCity: City) => console.log(`added City`)),
-                catchError(this.handleError<City>('addCity')),
+                tap((newCity: City) => console.log(`Update City`)),
+                catchError(this.handleError<City>('updateCity')),
             );
     }
 
