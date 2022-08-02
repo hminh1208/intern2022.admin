@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CityModule } from '@components/city/city.module';
 import { InputModule } from '@components/input/input.module';
 import { HomePage } from './home.page';
 @NgModule({
@@ -13,7 +12,6 @@ import { HomePage } from './home.page';
         DragDropModule,
         FormsModule,
         InputModule,
-        CityModule,
         RouterModule.forChild([
             {
                 path: '',
