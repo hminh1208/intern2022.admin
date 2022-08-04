@@ -16,7 +16,7 @@ export class CityPage implements OnInit, AfterViewInit {
     selectedId = '';
     isEdited = false;
     currentPage= 0;
-    pageSize = 10;
+    pageSize = 5;
 
     dataSource = new MatTableDataSource<City>();
     total = 0;
@@ -135,5 +135,13 @@ export class CityPage implements OnInit, AfterViewInit {
         this.isEdited = false;
         this.name = '';
         this.abbName = '';
+    }
+
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+        if (this.dataSource.paginator) {
+          this.dataSource.paginator.firstPage();
+        }
     }
 }

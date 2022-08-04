@@ -9,14 +9,12 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { CategoryRoutingModule } from "./category-routing.module";
 import { CityPage } from "./pages/city/city.page";
-import { GenderPage } from "./pages/gender/gender.page";
 import { LanguagePage } from "./pages/language/language.page";
 
 @NgModule({
     declarations: [
         CityPage,
-        LanguagePage,
-        GenderPage
+        LanguagePage
     ],
     imports: [
         FormsModule,
