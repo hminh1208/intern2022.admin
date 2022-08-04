@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://smartportal-api.azurewebsites.net/api',
+  // apiUrl: 'http://localhost:55220/api',
 };
 
 /*
