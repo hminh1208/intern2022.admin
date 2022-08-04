@@ -35,7 +35,8 @@ export const ROUTER_UTILS = {
     category:{
         root: 'category',
         city: 'city',
-        gender: 'gender'
+        gender: 'gender',
+        language: 'language'
     }
   },
 };
