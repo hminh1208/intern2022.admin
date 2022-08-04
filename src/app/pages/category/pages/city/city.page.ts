@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '@components/confirm-dialog/confirm-dialog.component';
 import { FormDialogComponent } from '@components/form-dialog/form-dialog.component';
@@ -20,9 +19,7 @@ export class CityPage implements OnInit, AfterViewInit {
 
     dataSource = new MatTableDataSource<City>();
     total = 0;
-
-    displayedColumns: string[] = ['name', 'abbName', 'action'];
-    @ViewChild(MatSort) sort!: MatSort;
+    displayedColumns: string[] = ['name', 'shortName', 'action'];
 
     constructor(
         private service: CityService,
@@ -32,7 +29,6 @@ export class CityPage implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.getList();
-        this.dataSource.sort = this.sort;
     }
 
     ngAfterViewInit() {
@@ -171,9 +167,8 @@ export class CityPage implements OnInit, AfterViewInit {
         this.shortName = '';
     }
 
-    applyFilter(event: Event) {
-        this.resetForm();
-        const filterValue = (event.target as HTMLInputElement).value;
+    applyFilter($event: any) {
+        const filterValue = $event.target.value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 }

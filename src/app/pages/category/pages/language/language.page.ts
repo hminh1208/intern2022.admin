@@ -57,7 +57,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
                     title: 'Alert',
                     description: 'Are you sure to delete this Language',
                     noText: 'Cancle',
-                    yesText: 'Delete'
+                    yesText: 'Delete',
                 },
             })
             .afterClosed()
@@ -96,7 +96,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
     edit(id: string) {
         this.selectedId = id;
         this.isEdited = true;
-        var language = this.dataSource.data.find((x) => x.id == id);
+        const language = this.dataSource.data.find((x) => x.id == id);
         if (language) {
             this.name = language?.name;
             this.abbName = language?.abbName;
@@ -143,7 +143,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
         if (this.dataSource.paginator) {
-          this.dataSource.paginator.firstPage();
+            this.dataSource.paginator.firstPage();
         }
     }
 }
