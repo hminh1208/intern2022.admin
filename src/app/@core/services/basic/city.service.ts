@@ -7,28 +7,40 @@ import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CityService {
-
     private url = environment.apiUrl;
 
     httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json'}),
-        withCredentials: true
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        withCredentials: true,
     };
 
     constructor(private http: HttpClient) {}
 
-    getCity(currentPage: number, pageSize: number): Observable<CityResponseDto> {
-        const params = new HttpParams().set('page', currentPage).set('pageSize', pageSize);
+    getCity(
+        currentPage: number,
+        pageSize: number,
+    ): Observable<CityResponseDto> {
+        const params = new HttpParams()
+            .set('page', currentPage)
+            .set('pageSize', pageSize);
 
-        return this.http.get<CityResponseDto>(this.url + '/cities', {params: params}).pipe(
-            tap((_) => console.log('fetched Citys')),
-            catchError(this.handleError<CityResponseDto>('getCitys')),
-        );
+        return this.http
+            .get<CityResponseDto>(this.url + '/categorycities', {
+                params: params,
+            })
+            .pipe(
+                tap((_) => console.log('fetched Citys')),
+                catchError(this.handleError<CityResponseDto>('getCitys')),
+            );
     }
 
     add(City: City): Observable<City> {
         return this.http
-            .post<City>(this.url + '/cities', City, this.httpOptions)
+            .post<City>(
+                this.url + '/categorycities/add-new',
+                City,
+                this.httpOptions,
+            )
             .pipe(
                 tap((newCity: City) => console.log(`added City`)),
                 catchError(this.handleError<City>('addCity')),
@@ -37,7 +49,11 @@ export class CityService {
 
     update(City: City): Observable<City> {
         return this.http
-            .post<City>(`${this.url}/cities/${City.id}`, City, this.httpOptions)
+            .post<City>(
+                `${this.url}/categorycities/edit/${City.id}`,
+                City,
+                this.httpOptions,
+            )
             .pipe(
                 tap((newCity: City) => console.log(`Update City`)),
                 catchError(this.handleError<City>('updateCity')),
@@ -45,7 +61,7 @@ export class CityService {
     }
 
     deleteCity(id: string): Observable<City> {
-        const url = `${this.url}/cities/${id}`;
+        const url = `${this.url}/categorycities/remove/${id}`;
 
         console.log(this.httpOptions);
 

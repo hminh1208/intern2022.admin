@@ -7,7 +7,7 @@
         </button>
         <mat-form-field>
             <mat-label>Filter</mat-label>
-            <input (keyup)="applyFilter($event)" matInput placeholder="Enter city" #input>
+            <input (keyup)="applyFilter($event)" matInput placeholder="Enter city" autocomplete="off">
         </mat-form-field>
     </div>
 
@@ -20,9 +20,9 @@
             </ng-container>
 
             <!-- Weight Column -->
-            <ng-container matColumnDef="abbName">
-                <th mat-header-cell *matHeaderCellDef> Abbrivation Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.abbName}} </td>
+            <ng-container matColumnDef="shortName">
+                <th mat-header-cell *matHeaderCellDef> Short Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.shortName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="action">
