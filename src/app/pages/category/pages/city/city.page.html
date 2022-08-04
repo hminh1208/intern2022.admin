@@ -1,38 +1,34 @@
 <div class="container">
-    <h1>City management</h1>
-    <div class="row">
-        <div class="row g-3 d-flex">
-            <div class="col-md-3 mr-2">
-                <input class="form-control" [(ngModel)]="abbName" />
-            </div>
-            <div class="col-md-5">
-                <input class="form-control" [(ngModel)]="name" />
-            </div>
-            <div class="col-md-2">
-                <button *ngIf="!isEdited" mat-raised-button color="primary" (click)="addItem(abbName, name)">Add</button>
-                <button *ngIf="isEdited" mat-raised-button color="primary" (click)="saveEdit()">Save</button>
-                <button *ngIf="isEdited" mat-raised-button color="secondary" (click)="cancleEdit()">Cancel</button>
-            </div>
-        </div>
+    <h1>City Management</h1>
+    <div>
+        <button mat-raised-button (click)="addCity()">
+            <i class="fa fa-plus"></i>
+            <span>New City</span>
+        </button>
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input (keyup)="applyFilter($event)" matInput placeholder="Enter city" #input>
+        </mat-form-field>
     </div>
-    <div class="row mt-3">
-        <table mat-table [dataSource]="dataSource">
+
+    <div class="mt-3 row">
+        <table mat-table [dataSource]="dataSource" matSort>
             <!-- Name Column -->
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="abbName">
-                <th mat-header-cell *matHeaderCellDef> Abbrivation Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Abbrivation Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.abbName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element">
-                    <button type="button" class="btn btn-warning" title="edit" (click)="edit(element.id)">
+                    <button type="button" class="btn btn-warning" title="edit" (click)="editCity(element.id)">
                         Edit
                     </button>
                     <button type="button" class="btn btn-danger" title="delete" (click)="delete(element.id)">
@@ -45,11 +41,8 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-            showFirstLastButtons
-            aria-label="Select page of city elements"
-            [length]="total"
-            (page)="handlePage($event)">
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of city elements" [length]="total" (page)="handlePage($event)">
         </mat-paginator>
     </div>
 </div>
