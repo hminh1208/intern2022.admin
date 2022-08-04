@@ -22,7 +22,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
     dataSource = new MatTableDataSource<Language>();
     total = 0;
     displayedColumns: string[] = ['name', 'abbName', 'action'];
-    @ViewChild(MatSort) sort!: MatSort;
+    @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
     constructor(
         private service: LanguageService,
