@@ -1,0 +1,11 @@
+.mat-column-name{
+    width: 50%;
+}
+
+.mat-column-action{
+    width: 20%;
+}
+
+button{
+    margin-right: 10px;
+}

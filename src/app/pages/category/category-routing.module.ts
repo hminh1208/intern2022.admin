@@ -3,11 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { ROUTER_UTILS } from '@core/utils/router.utils';
 import { CityPage } from './pages/city/city.page';
 import { LanguagePage } from './pages/language/language.page';
+import { GenderPage } from './pages/gender/gender.page';
 
 const routes: Routes = [
   {
     path: ROUTER_UTILS.config.category.city,
     component: CityPage
+  },
+  {
+    path: ROUTER_UTILS.config.category.gender,
+    component: GenderPage
   },
   {
     path: ROUTER_UTILS.config.category.language,
