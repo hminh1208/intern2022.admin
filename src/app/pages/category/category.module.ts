@@ -5,12 +5,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { CategoryRoutingModule } from './category-routing.module';
 import { CityPage } from './pages/city/city.page';
 import { GenderPage } from './pages/gender/gender.page';
+import { LanguagePage } from './pages/language/language.page';
 @NgModule({
-    declarations: [CityPage, GenderPage],
+    declarations: [CityPage, GenderPage, LanguagePage],
     imports: [
         FormsModule,
         CommonModule,
@@ -20,6 +22,7 @@ import { GenderPage } from './pages/gender/gender.page';
         MatPaginatorModule,
         MatFormFieldModule,
         MatInputModule,
+        MatSortModule
     ],
 })
 export class CategoryModule {}
