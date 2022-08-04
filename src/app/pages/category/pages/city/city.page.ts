@@ -92,7 +92,6 @@ export class CityPage implements OnInit, AfterViewInit {
                 name: this.name,
             },
         });
-
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
                 this.service
@@ -126,7 +125,6 @@ export class CityPage implements OnInit, AfterViewInit {
                 name: this.name,
             },
         });
-
         dialogRef.afterClosed().subscribe((result) => {
             if (result.name == '' || result.shortName == '') {
                 this.toast.error({
