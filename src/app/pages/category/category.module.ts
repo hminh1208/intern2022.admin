@@ -8,8 +8,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { CategoryRoutingModule } from './category-routing.module';
 import { CityPage } from './pages/city/city.page';
+import { GenderPage } from './pages/gender/gender.page';
 @NgModule({
-    declarations: [CityPage],
+    declarations: [CityPage, GenderPage],
     imports: [
         FormsModule,
         CommonModule,

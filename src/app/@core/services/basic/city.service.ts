@@ -25,7 +25,7 @@ export class CityService {
             .set('pageSize', pageSize);
 
         return this.http
-            .get<CityResponseDto>(this.url + '/categorycities', {
+            .get<CityResponseDto>(this.url + '/CategoryCities', {
                 params: params,
             })
             .pipe(
@@ -37,7 +37,7 @@ export class CityService {
     add(City: City): Observable<City> {
         return this.http
             .post<City>(
-                this.url + '/categorycities/add-new',
+                this.url + '/CategoryCities/Add-new',
                 City,
                 this.httpOptions,
             )
@@ -50,7 +50,7 @@ export class CityService {
     update(City: City): Observable<City> {
         return this.http
             .post<City>(
-                `${this.url}/categorycities/edit/${City.id}`,
+                `${this.url}/CategoryCities/Edit/${City.id}`,
                 City,
                 this.httpOptions,
             )
@@ -61,7 +61,7 @@ export class CityService {
     }
 
     deleteCity(id: string): Observable<City> {
-        const url = `${this.url}/categorycities/remove/${id}`;
+        const url = `${this.url}/CategoryCities/Remove/${id}`;
 
         console.log(this.httpOptions);
 
