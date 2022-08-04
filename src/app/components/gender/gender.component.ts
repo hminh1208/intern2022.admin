@@ -8,14 +8,10 @@ import { NgToastService } from 'ng-angular-popup';
   templateUrl: './gender.component.html',
   styleUrls: ['./gender.component.css']
 })
-<<<<<<< HEAD:src/app/components/city/city.component.ts
-export class CityComponent implements OnInit {
-    abbName= '';
-    nameString= '';
-=======
+
 export class GenderComponent implements OnInit {
     name= '';
->>>>>>> 4c3dd5adfc32f3d75908bbab800a69b8bd6c6b30:src/app/components/gender/gender.component.ts
+
     selectedId = '';
     genderList: Gendermanagerment[] = [];
     showAdd= false;
@@ -62,37 +58,22 @@ export class GenderComponent implements OnInit {
         this.selectedId = id;
         this.showAdd= false;
         this.showUpdate= true;
-<<<<<<< HEAD:src/app/components/city/city.component.ts
-        const city = this.cityList.find(x => x.id == id);
-        if(city){
-            this.nameString = city?.name;
-            this.abbName = city?.abbName;
-=======
+
         const gender = this.genderList.find(x => x.id == id);
         if(gender){
             this.name = gender?.name;
->>>>>>> 4c3dd5adfc32f3d75908bbab800a69b8bd6c6b30:src/app/components/gender/gender.component.ts
         }
     }
 
     saveEdit(){
-<<<<<<< HEAD:src/app/components/city/city.component.ts
-        this.service.update({id: this.selectedId, name: this.nameString, abbName: this.abbName } as City).subscribe((value) => {
-=======
         this.service.update({id: this.selectedId, name: this.name} as Gendermanagerment).subscribe((value) => {
->>>>>>> 4c3dd5adfc32f3d75908bbab800a69b8bd6c6b30:src/app/components/gender/gender.component.ts
             this.toast.success({detail:"Success Message", summary:"Update Success", duration:5000})
             this.getList();
         });
     }
     private resetForm(){
         this.selectedId = '';
-<<<<<<< HEAD:src/app/components/city/city.component.ts
-        this.nameString = '';
-        this.abbName = '';
-=======
         this.name = '';
->>>>>>> 4c3dd5adfc32f3d75908bbab800a69b8bd6c6b30:src/app/components/gender/gender.component.ts
         this.showUpdate= false;
     }
 }
