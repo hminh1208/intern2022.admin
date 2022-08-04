@@ -12,14 +12,15 @@ import { NgToastService } from 'ng-angular-popup';
     styleUrls: ['./city.page.css'],
 })
 export class CityPage implements OnInit, AfterViewInit {
-    abbName = '';
+    shortName = '';
     name = '';
     selectedId = '';
     currentPage = 0;
-    pageSize = 5;
+    pageSize = 10;
 
     dataSource = new MatTableDataSource<City>();
     total = 0;
+
     displayedColumns: string[] = ['name', 'abbName', 'action'];
     @ViewChild(MatSort) sort!: MatSort;
 
@@ -83,7 +84,7 @@ export class CityPage implements OnInit, AfterViewInit {
         const city = this.dataSource.data.find((x) => x.id == id);
         if (city) {
             this.name = city?.name;
-            this.abbName = city?.abbName;
+            this.shortName = city?.shortName;
         }
         const dialogRef = this.dialog.open(FormDialogComponent, {
             data: {
@@ -91,7 +92,7 @@ export class CityPage implements OnInit, AfterViewInit {
                 title: 'Edit City',
                 noText: 'Cancel',
                 yesText: 'Update',
-                abbName: this.abbName,
+                shortName: this.shortName,
                 name: this.name,
             },
         });
@@ -101,7 +102,7 @@ export class CityPage implements OnInit, AfterViewInit {
                     .update({
                         id: result.id,
                         name: result.name,
-                        abbName: result.abbName,
+                        shortName: result.shortName,
                     } as City)
                     .subscribe((response) => {
                         this.getList();
@@ -124,12 +125,12 @@ export class CityPage implements OnInit, AfterViewInit {
                 title: 'Add City',
                 noText: 'Cancel',
                 yesText: 'Add',
-                abbName: this.abbName,
+                shortName: this.shortName,
                 name: this.name,
             },
         });
         dialogRef.afterClosed().subscribe((result) => {
-            if (result.name == '' || result.abbName == '') {
+            if (result.name == '' || result.shortName == '') {
                 this.toast.error({
                     detail: 'Error Message',
                     summary: 'Add Fail, Try again later!',
@@ -140,7 +141,7 @@ export class CityPage implements OnInit, AfterViewInit {
                     this.service
                         .add({
                             name: result.name,
-                            abbName: result.abbName,
+                            shortName: result.shortName,
                         } as City)
                         .subscribe((response) => {
                             this.getList();
@@ -167,7 +168,7 @@ export class CityPage implements OnInit, AfterViewInit {
     private resetForm() {
         this.selectedId = '';
         this.name = '';
-        this.abbName = '';
+        this.shortName = '';
     }
 
     applyFilter(event: Event) {

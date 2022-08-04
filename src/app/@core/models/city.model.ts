@@ -1,10 +1,10 @@
 export interface City {
     id: string;
     name: string;
-    abbName: string;
+    shortName: string;
 }
 
-export interface CityResponseDto{
-    results: City[],
-    total: number
+export interface CityResponseDto {
+    results: City[];
+    total: number;
 }
