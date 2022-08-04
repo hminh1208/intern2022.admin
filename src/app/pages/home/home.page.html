@@ -19,7 +19,13 @@
             Go to City Management
         </a>
 
-        <app-city></app-city>
+        <a
+            class="text-sm link"
+            [routerLink]="['/', path.category.root, path.category.gender]"
+            class="mb-12 btn btn-primary"
+        >
+            Go to Gender Management
+        </a>
 
         <div class="row mt-3">
             <div class="col-md-12">
