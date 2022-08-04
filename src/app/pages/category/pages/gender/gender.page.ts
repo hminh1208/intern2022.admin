@@ -1,67 +1,60 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { ConfirmDialogComponent } from '@components/confirm-dialog/confirm-dialog.component';
-import { City } from '@core/models/city.model';
-import { CityService } from '@core/services/basic/city.service';
-import { NgToastService } from 'ng-angular-popup';
+import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTableDataSource } from "@angular/material/table";
+import { ConfirmDialogComponent } from "@components/confirm-dialog/confirm-dialog.component";
+import { Gendermanagerment } from "@core/models/gender.model";
+import { GenderService } from "@core/services/basic/gender.service";
+import { NgToastService } from "ng-angular-popup";
 
 @Component({
-    templateUrl: './city.page.html',
-    styleUrls: ['./city.page.css'],
+    templateUrl: './gender.page.html',
+    styleUrls: ['./gender.page.css'],
 })
-export class CityPage implements OnInit, AfterViewInit {
-    abbName = '';
+export class GenderPage implements OnInit {
     name = '';
     selectedId = '';
     isEdited = false;
-    currentPage= 0;
-    pageSize = 10;
+    currentPage = 0;
+    pageSize = 5;
 
-    dataSource = new MatTableDataSource<City>();
+    dataSource = new MatTableDataSource<Gendermanagerment>();
     total = 0;
-    displayedColumns: string[] = ['name', 'abbName', 'action'];
+    displayedColumns: string[] = ['name', 'action'];
 
     constructor(
-        private service: CityService,
+        private service: GenderService,
         private toast: NgToastService,
         private dialog: MatDialog,
     ) {}
-
     ngOnInit(): void {
         this.getList();
-    }
-
-    ngAfterViewInit() {
-        return;
     }
 
     getList() {
         this.resetForm();
         this.service
-            .getCity(this.currentPage, this.pageSize)
+            .getGender(this.currentPage, this.pageSize)
             .subscribe((response) => {
-                this.dataSource = new MatTableDataSource<City>(
+                this.dataSource = new MatTableDataSource<Gendermanagerment>(
                     response.results,
                 );
                 this.total = response.total;
             });
     }
-
     delete(id: string) {
         this.dialog
             .open(ConfirmDialogComponent, {
                 data: {
-                    title: 'Alert',
-                    description: 'Are you sure to delete this City',
-                    noText: 'Cancle',
+                    title: 'Warning',
+                    description: 'Are you sure to delete this Name',
+                    noText: 'Cancel',
                     yesText: 'Delete'
                 },
             })
             .afterClosed()
             .subscribe((result) => {
                 if (result) {
-                    this.service.deleteCity(id).subscribe((response) => {
+                    this.service.deleteGender(id).subscribe((response) => {
                         this.getList();
 
                         if (response) {
@@ -76,9 +69,9 @@ export class CityPage implements OnInit, AfterViewInit {
             });
     }
 
-    addItem(abbName: string, name: string) {
+    addItem(name: string) {
         this.service
-            .add({ name: name, abbName: abbName } as City)
+            .add({ name: name} as Gendermanagerment)
             .subscribe((response) => {
                 this.getList();
                 if (response) {
@@ -94,10 +87,9 @@ export class CityPage implements OnInit, AfterViewInit {
     edit(id: string) {
         this.selectedId = id;
         this.isEdited = true;
-        var city = this.dataSource.data.find((x) => x.id == id);
-        if (city) {
-            this.name = city?.name;
-            this.abbName = city?.abbName;
+        const gender = this.dataSource.data.find((x) => x.id == id);
+        if (gender) {
+            this.name = gender?.name;
         }
     }
 
@@ -106,8 +98,7 @@ export class CityPage implements OnInit, AfterViewInit {
             .update({
                 id: this.selectedId,
                 name: this.name,
-                abbName: this.abbName,
-            } as City)
+            } as Gendermanagerment)
             .subscribe((response) => {
                 this.getList();
                 if (response) {
@@ -134,6 +125,5 @@ export class CityPage implements OnInit, AfterViewInit {
         this.selectedId = '';
         this.isEdited = false;
         this.name = '';
-        this.abbName = '';
     }
 }

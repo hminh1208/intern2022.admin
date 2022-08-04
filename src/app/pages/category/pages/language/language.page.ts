@@ -1,29 +1,31 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '@components/confirm-dialog/confirm-dialog.component';
-import { City } from '@core/models/city.model';
-import { CityService } from '@core/services/basic/city.service';
+import { Language } from '@core/models/language.model';
+import { LanguageService } from '@core/services/basic/language.service';
 import { NgToastService } from 'ng-angular-popup';
 
 @Component({
-    templateUrl: './city.page.html',
-    styleUrls: ['./city.page.css'],
+    templateUrl: './language.page.html',
+    styleUrls: ['./language.page.css'],
 })
-export class CityPage implements OnInit, AfterViewInit {
+export class LanguagePage implements OnInit, AfterViewInit {
     abbName = '';
     name = '';
     selectedId = '';
     isEdited = false;
-    currentPage= 0;
-    pageSize = 10;
+    currentPage = 0;
+    pageSize = 5;
 
-    dataSource = new MatTableDataSource<City>();
+    dataSource = new MatTableDataSource<Language>();
     total = 0;
     displayedColumns: string[] = ['name', 'abbName', 'action'];
+    @ViewChild(MatSort) sort!: MatSort;
 
     constructor(
-        private service: CityService,
+        private service: LanguageService,
         private toast: NgToastService,
         private dialog: MatDialog,
     ) {}
@@ -33,15 +35,15 @@ export class CityPage implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        return;
+        this.dataSource.sort = this.sort;
     }
 
     getList() {
         this.resetForm();
         this.service
-            .getCity(this.currentPage, this.pageSize)
+            .getLanguage(this.currentPage, this.pageSize)
             .subscribe((response) => {
-                this.dataSource = new MatTableDataSource<City>(
+                this.dataSource = new MatTableDataSource<Language>(
                     response.results,
                 );
                 this.total = response.total;
@@ -53,7 +55,7 @@ export class CityPage implements OnInit, AfterViewInit {
             .open(ConfirmDialogComponent, {
                 data: {
                     title: 'Alert',
-                    description: 'Are you sure to delete this City',
+                    description: 'Are you sure to delete this Language',
                     noText: 'Cancle',
                     yesText: 'Delete'
                 },
@@ -61,7 +63,7 @@ export class CityPage implements OnInit, AfterViewInit {
             .afterClosed()
             .subscribe((result) => {
                 if (result) {
-                    this.service.deleteCity(id).subscribe((response) => {
+                    this.service.deleteLanguage(id).subscribe((response) => {
                         this.getList();
 
                         if (response) {
@@ -78,7 +80,7 @@ export class CityPage implements OnInit, AfterViewInit {
 
     addItem(abbName: string, name: string) {
         this.service
-            .add({ name: name, abbName: abbName } as City)
+            .add({ name: name, abbName: abbName } as Language)
             .subscribe((response) => {
                 this.getList();
                 if (response) {
@@ -94,10 +96,10 @@ export class CityPage implements OnInit, AfterViewInit {
     edit(id: string) {
         this.selectedId = id;
         this.isEdited = true;
-        var city = this.dataSource.data.find((x) => x.id == id);
-        if (city) {
-            this.name = city?.name;
-            this.abbName = city?.abbName;
+        var language = this.dataSource.data.find((x) => x.id == id);
+        if (language) {
+            this.name = language?.name;
+            this.abbName = language?.abbName;
         }
     }
 
@@ -107,7 +109,7 @@ export class CityPage implements OnInit, AfterViewInit {
                 id: this.selectedId,
                 name: this.name,
                 abbName: this.abbName,
-            } as City)
+            } as Language)
             .subscribe((response) => {
                 this.getList();
                 if (response) {
@@ -135,5 +137,13 @@ export class CityPage implements OnInit, AfterViewInit {
         this.isEdited = false;
         this.name = '';
         this.abbName = '';
+    }
+
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+        if (this.dataSource.paginator) {
+          this.dataSource.paginator.firstPage();
+        }
     }
 }
