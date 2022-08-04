@@ -18,6 +18,18 @@ i {
     padding-right: 4px;
 }
 
+table {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 500px;
+}
+
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+}
+
 @media only screen and (max-width: 1280px) {
     .btn {
         padding: 4px 10px;
