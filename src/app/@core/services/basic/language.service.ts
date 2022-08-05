@@ -20,7 +20,7 @@ export class LanguageService {
     getLanguage(currentPage: number, pageSize: number): Observable<LanguageResponseDto> {
         const params = new HttpParams().set('page', currentPage).set('pageSize', pageSize);
 
-        return this.http.get<LanguageResponseDto>(this.url + '/languages', {params: params}).pipe(
+        return this.http.get<LanguageResponseDto>(this.url + '/LanguageControllers/get', {params: params}).pipe(
             tap((_) => console.log('fetched Languages')),
             catchError(this.handleError<LanguageResponseDto>('getLanguages')),
         );
@@ -28,7 +28,7 @@ export class LanguageService {
 
     add(Language: Language): Observable<Language> {
         return this.http
-            .post<Language>(this.url + '/languages', Language, this.httpOptions)
+            .post<Language>(this.url + '/LanguageControllers/add', Language, this.httpOptions)
             .pipe(
                 tap((newLanguage: Language) => console.log(`added Language`)),
                 catchError(this.handleError<Language>('addLanguage')),
@@ -37,7 +37,7 @@ export class LanguageService {
 
     update(Language: Language): Observable<Language> {
         return this.http
-            .post<Language>(`${this.url}/languages/${Language.id}`, Language, this.httpOptions)
+            .post<Language>(`${this.url}/LanguageControllers/${Language.id}`, Language, this.httpOptions)
             .pipe(
                 tap((newLanguage: Language) => console.log(`Update Language`)),
                 catchError(this.handleError<Language>('updateLanguage')),
@@ -45,8 +45,7 @@ export class LanguageService {
     }
 
     deleteLanguage(id: string): Observable<Language> {
-        const url = `${this.url}/languages/${id}`;
-
+        const url = `${this.url}/LanguageControllers/${id}`;
         console.log(this.httpOptions);
 
         return this.http.delete<Language>(url, this.httpOptions).pipe(

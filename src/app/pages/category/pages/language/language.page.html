@@ -3,13 +3,13 @@
     <div class="row">
         <div class="row g-3 d-flex">
             <div class="col-md-3 mr-2">
-                <input class="form-control" [(ngModel)]="abbName" />
+                <input class="form-control" [(ngModel)]="shortName" />
             </div>
             <div class="col-md-5">
                 <input class="form-control" [(ngModel)]="name" />
             </div>
             <div class="col-md-2">
-                <button *ngIf="!isEdited" mat-raised-button color="primary" (click)="addItem(abbName, name)">Add</button>
+                <button *ngIf="!isEdited" mat-raised-button color="primary" (click)="addItem(shortName, name)">Add</button>
                 <button *ngIf="isEdited" mat-raised-button color="primary" (click)="saveEdit()">Save</button>
                 <button *ngIf="isEdited" mat-raised-button color="secondary" (click)="cancleEdit()">Cancel</button>
             </div>
@@ -36,9 +36,9 @@
             </ng-container>
 
             <!-- Weight Column -->
-            <ng-container matColumnDef="abbName">
+            <ng-container matColumnDef="shortName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Abbrivation Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.abbName}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.shortName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="action">

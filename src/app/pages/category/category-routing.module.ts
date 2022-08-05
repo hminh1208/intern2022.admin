@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ROUTER_UTILS } from '@core/utils/router.utils';
 import { CityPage } from './pages/city/city.page';
-import { LanguagePage } from './pages/language/language.page';
 import { GenderPage } from './pages/gender/gender.page';
+import { LanguagePage } from './pages/language/language.page';
 
 const routes: Routes = [
   {

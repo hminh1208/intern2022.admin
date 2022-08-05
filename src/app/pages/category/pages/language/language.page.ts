@@ -12,7 +12,7 @@ import { NgToastService } from 'ng-angular-popup';
     styleUrls: ['./language.page.css'],
 })
 export class LanguagePage implements OnInit, AfterViewInit {
-    abbName = '';
+    shortName = '';
     name = '';
     selectedId = '';
     isEdited = false;
@@ -21,8 +21,8 @@ export class LanguagePage implements OnInit, AfterViewInit {
 
     dataSource = new MatTableDataSource<Language>();
     total = 0;
-    displayedColumns: string[] = ['name', 'abbName', 'action'];
-    @ViewChild(MatSort) sort!: MatSort;
+    displayedColumns: string[] = ['name', 'shortName', 'action'];
+    @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
     constructor(
         private service: LanguageService,
@@ -57,7 +57,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
                     title: 'Alert',
                     description: 'Are you sure to delete this Language',
                     noText: 'Cancle',
-                    yesText: 'Delete'
+                    yesText: 'Delete',
                 },
             })
             .afterClosed()
@@ -78,9 +78,9 @@ export class LanguagePage implements OnInit, AfterViewInit {
             });
     }
 
-    addItem(abbName: string, name: string) {
+    addItem(shortName: string, name: string) {
         this.service
-            .add({ name: name, abbName: abbName } as Language)
+            .add({ name: name, shortName: shortName } as Language)
             .subscribe((response) => {
                 this.getList();
                 if (response) {
@@ -96,10 +96,10 @@ export class LanguagePage implements OnInit, AfterViewInit {
     edit(id: string) {
         this.selectedId = id;
         this.isEdited = true;
-        var language = this.dataSource.data.find((x) => x.id == id);
+        const language = this.dataSource.data.find((x) => x.id == id);
         if (language) {
             this.name = language?.name;
-            this.abbName = language?.abbName;
+            this.shortName = language?.shortName;
         }
     }
 
@@ -108,7 +108,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
             .update({
                 id: this.selectedId,
                 name: this.name,
-                abbName: this.abbName,
+                shortName: this.shortName,
             } as Language)
             .subscribe((response) => {
                 this.getList();
@@ -136,14 +136,14 @@ export class LanguagePage implements OnInit, AfterViewInit {
         this.selectedId = '';
         this.isEdited = false;
         this.name = '';
-        this.abbName = '';
+        this.shortName = '';
     }
 
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
         if (this.dataSource.paginator) {
-          this.dataSource.paginator.firstPage();
+            this.dataSource.paginator.firstPage();
         }
     }
 }
