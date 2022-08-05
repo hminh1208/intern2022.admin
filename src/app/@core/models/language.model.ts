@@ -1,7 +1,7 @@
 export interface Language {
     id: string;
     name: string;
-    abbName: string;
+    shortName: string;
 }
 
 export interface LanguageResponseDto{

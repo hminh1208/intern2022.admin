@@ -15,7 +15,7 @@ export class CityPage implements OnInit, AfterViewInit {
     name = '';
     selectedId = '';
     currentPage = 0;
-    pageSize = 10;
+    pageSize = 5;
 
     dataSource = new MatTableDataSource<City>();
     total = 0;
@@ -171,4 +171,5 @@ export class CityPage implements OnInit, AfterViewInit {
         const filterValue = $event.target.value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
+
 }

@@ -12,7 +12,7 @@ import { NgToastService } from 'ng-angular-popup';
     styleUrls: ['./language.page.css'],
 })
 export class LanguagePage implements OnInit, AfterViewInit {
-    abbName = '';
+    shortName = '';
     name = '';
     selectedId = '';
     isEdited = false;
@@ -21,7 +21,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
 
     dataSource = new MatTableDataSource<Language>();
     total = 0;
-    displayedColumns: string[] = ['name', 'abbName', 'action'];
+    displayedColumns: string[] = ['name', 'shortName', 'action'];
     @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
     constructor(
@@ -78,9 +78,9 @@ export class LanguagePage implements OnInit, AfterViewInit {
             });
     }
 
-    addItem(abbName: string, name: string) {
+    addItem(shortName: string, name: string) {
         this.service
-            .add({ name: name, abbName: abbName } as Language)
+            .add({ name: name, shortName: shortName } as Language)
             .subscribe((response) => {
                 this.getList();
                 if (response) {
@@ -99,7 +99,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
         const language = this.dataSource.data.find((x) => x.id == id);
         if (language) {
             this.name = language?.name;
-            this.abbName = language?.abbName;
+            this.shortName = language?.shortName;
         }
     }
 
@@ -108,7 +108,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
             .update({
                 id: this.selectedId,
                 name: this.name,
-                abbName: this.abbName,
+                shortName: this.shortName,
             } as Language)
             .subscribe((response) => {
                 this.getList();
@@ -136,7 +136,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
         this.selectedId = '';
         this.isEdited = false;
         this.name = '';
-        this.abbName = '';
+        this.shortName = '';
     }
 
     applyFilter(event: Event) {
