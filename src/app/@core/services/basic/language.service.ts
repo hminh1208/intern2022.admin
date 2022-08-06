@@ -55,7 +55,7 @@ export class LanguageService {
 
     update(Language: Language): Observable<Language> {
         return this.http
-            .put<Language>(`${this.url}/LanguageControllers/${Language.id}`, Language, this.httpOptions)
+            .post<Language>(`${this.url}/LanguageControllers/${Language.id}`, Language, this.httpOptions)
             .pipe(
                 tap((newLanguage: Language) => console.log(`Update Language`)),
                 catchError(this.handleError<Language>('updateLanguage')),
