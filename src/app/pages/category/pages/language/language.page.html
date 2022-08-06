@@ -2,42 +2,54 @@
     <h1>Language management</h1>
     <div class="row">
         <div class="row g-3 d-flex">
-            <div class="col-md-3 mr-2">
-                <input class="form-control" [(ngModel)]="shortName" />
+            <mat-form-field appearance="standard" class="col-md-3">
+                <mat-label>
+                    <i class="fa fa-search"></i>
+                    Search
+                </mat-label>
+                <input
+                    matInput (keyup)="applyFilter($event)"
+                    placeholder="Search Language"
+                    #input>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="col-md-3">
+                <mat-label>Sort</mat-label>
+                <mat-select [(ngModel)]="sortValue" (ngModelChange)="onChange($event)">
+                  <mat-option *ngFor="let sortView of sortViews" [value]="sortView">
+                    {{sortView}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="col-md-3">
+                <button class="btn-md" *ngIf="!isAdd && !isEdited" mat-raised-button color="primary" (click)="newItem()">New Language</button>
             </div>
-            <div class="col-md-5">
-                <input class="form-control" [(ngModel)]="name" />
+        </div>
+        <div class="row g-3 d-flex" *ngIf="isEdited || isAdd">
+            <div class="col-md-3 mr-2">
+                <input *ngIf="isEdited || isAdd" placeholder="name" class="form-control" [(ngModel)]="name" />
+            </div>
+            <div class="col-md-3">
+                <input *ngIf="isEdited || isAdd" placeholder="shortName" class="form-control" [(ngModel)]="shortName" />
             </div>
             <div class="col-md-2">
-                <button *ngIf="!isEdited" mat-raised-button color="primary" (click)="addItem(shortName, name)">Add</button>
+                <button *ngIf="isAdd && !isEdited" mat-raised-button color="primary" (click)="addItem(shortName, name)">Add</button>
                 <button *ngIf="isEdited" mat-raised-button color="primary" (click)="saveEdit()">Save</button>
-                <button *ngIf="isEdited" mat-raised-button color="secondary" (click)="cancleEdit()">Cancel</button>
+                <button *ngIf="isEdited || isAdd" mat-raised-button color="secondary" (click)="cancle()">Cancel</button>
             </div>
         </div>
     </div>
-    <div class="row col-md-3">
-        <mat-form-field appearance="standard">
-            <mat-label>
-                <i class="fa fa-search"></i>
-                Search
-            </mat-label>
-            <input
-                matInput (keyup)="applyFilter($event)"
-                placeholder="Search Language"
-                #input>
-          </mat-form-field>
-    </div>
+
     <div class="row mt-3">
-        <table mat-table [dataSource]="dataSource" matSort>
+        <table mat-table [dataSource]="dataSource">
             <!-- Name Column -->
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <th mat-header-cell *matHeaderCellDef> Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="shortName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Abbrivation Name </th>
+                <th mat-header-cell *matHeaderCellDef> Abbrivation Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.shortName}} </td>
             </ng-container>
 

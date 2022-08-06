@@ -26,6 +26,24 @@ export class LanguageService {
         );
     }
 
+    searchLanguage(currentPage: number, pageSize: number, searchString: string): Observable<LanguageResponseDto> {
+        const params = new HttpParams().set('page', currentPage).set('pageSize', pageSize).set('searchString', searchString);
+
+        return this.http.get<LanguageResponseDto>(this.url + '/LanguageControllers/search/' + searchString, {params: params}).pipe(
+            tap((_) => console.log('fetched searchLanguages')),
+            catchError(this.handleError<LanguageResponseDto>('searchLanguages')),
+        );
+    }
+
+    sortLanguage(currentPage: number, pageSize: number, sortValue: string): Observable<LanguageResponseDto> {
+        const params = new HttpParams().set('page', currentPage).set('pageSize', pageSize).set('sortValue', sortValue);
+
+        return this.http.get<LanguageResponseDto>(this.url + '/LanguageControllers/sort/' + sortValue, {params: params}).pipe(
+            tap((_) => console.log('fetched sortLanguages')),
+            catchError(this.handleError<LanguageResponseDto>('sortLanguages')),
+        );
+    }
+
     add(Language: Language): Observable<Language> {
         return this.http
             .post<Language>(this.url + '/LanguageControllers/add', Language, this.httpOptions)
@@ -37,7 +55,7 @@ export class LanguageService {
 
     update(Language: Language): Observable<Language> {
         return this.http
-            .post<Language>(`${this.url}/LanguageControllers/${Language.id}`, Language, this.httpOptions)
+            .put<Language>(`${this.url}/LanguageControllers/${Language.id}`, Language, this.httpOptions)
             .pipe(
                 tap((newLanguage: Language) => console.log(`Update Language`)),
                 catchError(this.handleError<Language>('updateLanguage')),
