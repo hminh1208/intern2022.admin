@@ -15,7 +15,8 @@ export class GenderPage implements OnInit {
     selectedId = '';
     isEdited = false;
     currentPage = 0;
-    pageSize = 5;
+    pageSize = 10;
+
 
     dataSource = new MatTableDataSource<Gendermanagerment>();
     total = 0;
