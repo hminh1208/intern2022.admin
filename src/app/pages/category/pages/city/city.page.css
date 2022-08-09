@@ -1,0 +1,25 @@
+.mat-column-name {
+    width: 50%;
+}
+
+.mat-column-shortName {
+    width: 30%;
+}
+
+.mat-column-action {
+    width: 20%;
+}
+
+button {
+    margin-right: 10px;
+}
+
+i {
+    padding-right: 4px;
+}
+
+@media only screen and (max-width: 1280px) {
+    .btn {
+        padding: 4px 10px;
+    }
+}

@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+    {{ data.description }}
+    <hr>
+    <button class="btn btn-light" mat-dialog-close style="margin-right: 10px;">{{ data.noText }}</button>
+    <button class="btn btn-danger" [mat-dialog-close]="true" cdkFocusInitial>{{ data.yesText }}</button>
+</div>

@@ -11,5 +11,7 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "css.validate": false
+  "css.validate": false,
+  "appService.defaultWebAppToDeploy": "/subscriptions/14052251-2772-4484-bb59-afbaac65db9b/microsoft.web/sites/subscriptions/14052251-2772-4484-bb59-afbaac65db9b/resourceGroups/smartportal-portal_group-92f0/providers/Microsoft.Web/sites/smartportal-admin",
+  "appService.deploySubpath": "dist\\angular-boilerplate"
 }
