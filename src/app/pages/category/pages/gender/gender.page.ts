@@ -17,6 +17,7 @@ export class GenderPage implements OnInit {
     currentPage = 0;
     pageSize = 10;
 
+
     dataSource = new MatTableDataSource<Gendermanagerment>();
     total = 0;
     displayedColumns: string[] = ['name', 'action'];

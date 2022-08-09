@@ -25,7 +25,8 @@
       "@components/*": ["src/app/components/*"],
       "@pages/*": ["src/app/pages/*"],
       "@env/*": ["src/environments/*"]
-    }
+    },
+    "typeRoots": ["node_modules/@angular/material"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
