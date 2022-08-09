@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSelectModule } from "@angular/material/select";
+import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { CategoryRoutingModule } from "./category-routing.module";
 import { CityPage } from "./pages/city/city.page";
@@ -34,5 +35,12 @@ import { LanguagePage } from "./pages/language/language.page";
         MatFormFieldModule,
         MatInputModule
       ]
+        MatFormFieldModule,
+        MatInputModule,
+        MatSortModule
+    ],
+    exports: [
+        MatSortModule
+    ]
   })
 export class CategoryModule {}

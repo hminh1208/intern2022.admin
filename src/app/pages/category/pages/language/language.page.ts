@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '@components/confirm-dialog/confirm-dialog.component';
 import { Language } from '@core/models/language.model';
@@ -18,12 +21,12 @@ export class LanguagePage implements OnInit, AfterViewInit {
     isEdited = false;
     currentPage = 0;
     pageSize = 5;
-
     dataSource = new MatTableDataSource<Language>();
     total = 0;
     displayedColumns: string[] = ['name', 'shortName', 'action'];
     sortValue = '';
     sortViews: string[] = ['name', 'name_desc', 'shortName', 'shortName_desc'];
+    @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
     constructor(
         private service: LanguageService,
@@ -36,7 +39,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        return;
+        this.dataSource.sort = this.sort;
     }
 
     getList() {
@@ -84,7 +87,6 @@ export class LanguagePage implements OnInit, AfterViewInit {
     }
 
     addItem(shortName: string, name: string) {
-        this.isAdd = false;
         this.service
             .add({ name: name, shortName: shortName } as Language)
             .subscribe((response) => {
@@ -126,9 +128,9 @@ export class LanguagePage implements OnInit, AfterViewInit {
                     });
                 }
             });
-    }
+    }  
 
-    cancle() {
+    cancleEdit() {
         this.resetForm();
     }
 
@@ -147,6 +149,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
     }
 
     applyFilter(event: Event) {
+
         const searchString = (event.target as HTMLInputElement).value;
 
         if(searchString === ''){
@@ -178,4 +181,13 @@ export class LanguagePage implements OnInit, AfterViewInit {
                 this.total = response.total;
             });
     }
+
+    cancle() {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+        if (this.dataSource.paginator) {
+            this.dataSource.paginator.firstPage();
+        }
+    }
+
 }

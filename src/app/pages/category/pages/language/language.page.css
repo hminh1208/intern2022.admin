@@ -2,7 +2,8 @@
     width: 50%;
 }
 
-.mat-column-shortName {
+
+.mat-column-shortName, .mat-column-abbName {
     width: 30%;
 }
 
@@ -16,6 +17,7 @@ button {
 
 .btn-md {
     margin: 8px 16px;
+    margin-right: 10px;
 }
 
 i {
@@ -57,5 +59,6 @@ th.mat-header-cell {
 
     .mat-column-action {
         width: 30%;
+        padding: 4px 10px;
     }
 }
