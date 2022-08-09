@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from '@components/confirm-dialog/confirm-dialog.component';
 import { Language } from '@core/models/language.model';
@@ -15,6 +14,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
     shortName = '';
     name = '';
     selectedId = '';
+    isAdd = false;
     isEdited = false;
     currentPage = 0;
     pageSize = 5;
@@ -22,7 +22,8 @@ export class LanguagePage implements OnInit, AfterViewInit {
     dataSource = new MatTableDataSource<Language>();
     total = 0;
     displayedColumns: string[] = ['name', 'shortName', 'action'];
-    @ViewChild(MatSort, { static: true }) sort!: MatSort;
+    sortValue = '';
+    sortViews: string[] = ['name', 'name_desc', 'shortName', 'shortName_desc'];
 
     constructor(
         private service: LanguageService,
@@ -35,7 +36,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.dataSource.sort = this.sort;
+        return;
     }
 
     getList() {
@@ -78,7 +79,12 @@ export class LanguagePage implements OnInit, AfterViewInit {
             });
     }
 
+    newItem() {
+        this.isAdd = true;
+    }
+
     addItem(shortName: string, name: string) {
+        this.isAdd = false;
         this.service
             .add({ name: name, shortName: shortName } as Language)
             .subscribe((response) => {
@@ -122,7 +128,7 @@ export class LanguagePage implements OnInit, AfterViewInit {
             });
     }
 
-    cancleEdit() {
+    cancle() {
         this.resetForm();
     }
 
@@ -135,15 +141,41 @@ export class LanguagePage implements OnInit, AfterViewInit {
     private resetForm() {
         this.selectedId = '';
         this.isEdited = false;
+        this.isAdd = false;
         this.name = '';
         this.shortName = '';
     }
 
     applyFilter(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
-        if (this.dataSource.paginator) {
-            this.dataSource.paginator.firstPage();
+        const searchString = (event.target as HTMLInputElement).value;
+
+        if(searchString === ''){
+            this.getList();
         }
+        else{
+            this.resetForm();
+            this.service
+                .searchLanguage(this.currentPage, this.pageSize, searchString)
+                .subscribe((response) => {
+                    this.dataSource = new MatTableDataSource<Language>(
+                        response.results,
+                    );
+                    this.total = response.total;
+                });
+        }
+    }
+
+    onChange(event: Event) {
+        console.log(this.sortValue);
+
+        this.resetForm();
+        this.service
+            .sortLanguage(this.currentPage, this.pageSize, this.sortValue)
+            .subscribe((response) => {
+                this.dataSource = new MatTableDataSource<Language>(
+                    response.results,
+                );
+                this.total = response.total;
+            });
     }
 }
